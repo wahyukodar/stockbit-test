@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+option go_package = "/stockbit_test/soal2/proto";
+
+package movieRpcProto;
+
+import "google/api/annotations.proto";
+
+service movies {
+  rpc GetMovies (GetMoviesRequest) returns (GetMoviesResponse){
+    option (google.api.http) = {
+      get: "/get-movies"
+    };
+  }
+}
+
+service movie {
+  rpc GetMovie (GetMovieRequest) returns (GetMovieResponse){
+    option (google.api.http) = {
+      get: "/get-movie"
+    };
+  }
+}
+
+message GetMovieRequest {
+  string omdbId = 1;
+}
+
+message Ratings {
+  string source = 1;
+  string value = 2;
+}
+
+message GetMovieResponse {
+  string title = 1;
+  string year = 2;
+  string rated = 3;
+  string released = 4;
+  string runtime = 5;
+  string genre = 6;
+  string director = 7;
+  string writer = 8;
+  string actors = 9;
+  string plot = 10;
+  string language = 11;
+  string country = 12;
+  string awards = 13;
+  string poster = 14;
+  repeated Ratings ratings = 15;
+  string metaScore = 16;
+  string imdbRating = 17;
+  string imdbVotes = 18;
+  string imdbID = 19;
+  string type = 20;
+  string dvd = 21;
+  string boxOffice = 22;
+  string production = 23;
+  string website = 24;
+  string response = 25;
+}
+
+message GetMoviesRequest {
+  string searchWord = 1;
+  int32 page = 2;
+}
+
+message GetMoviesResponseData {
+  string title = 1;
+  string year = 2;
+  string imdbID = 3;
+  string type = 4;
+  string poster = 5;
+}
+
+message GetMoviesResponse {
+  repeated GetMoviesResponseData data = 1;
+  int32 total = 2;
+  int32 pages = 3;
+  int32 page = 4;
+}

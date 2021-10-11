@@ -1,0 +1,20 @@
+service:
+  name: application
+  version: 1.0
+
+mysql:
+  dbname:
+  addr:
+  user:
+  password:
+  port:
+  idleconn:
+  maxconn:
+
+restservicemovie:
+  port: :8080
+  address: 127.0.0.1:8080
+
+grpcservicemovie:
+  port: :4040
+  address: 127.0.0.1:4040

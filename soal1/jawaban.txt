@@ -1,0 +1,5 @@
+-- Dengan menggunakan join
+SELECT a.ID, a.UserName, COALESCE(b.UserName,'NULL') AS ParentUserName FROM imdb.USER a LEFT JOIN imdb.USER AS b on a.Parent = b.ID;
+
+-- Dengan menggunakan subquery
+SELECT a.ID, a.UserName, COALESCE((SELECT b.UserName FROM imdb.USER b WHERE b.ID = a.Parent), 'NULL') AS ParentUserName FROM imdb.USER AS a;

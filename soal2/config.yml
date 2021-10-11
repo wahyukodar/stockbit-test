@@ -3,13 +3,13 @@ service:
   version: 1.0
 
 mysql:
-  dbname:
-  addr:
-  user:
-  password:
-  port:
-  idleconn:
-  maxconn:
+  dbname: omdb
+  addr: 127.0.0.1
+  user: root
+  password: root
+  port: 3306
+  idleconn: 4
+  maxconn: 20
 
 restservicemovie:
   port: :8080

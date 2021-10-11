@@ -20,7 +20,7 @@ var (
 )
 
 func Run() {
-	cinit.InitOption(SN)
+	cinit.InitOption(SN, cinit.MySQL)
 
 	conn, err := grpc.Dial(cinit.Config.GrpcServiceMovie.Address, grpc.WithInsecure())
 	if err != nil {

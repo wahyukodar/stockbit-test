@@ -21,6 +21,8 @@ const (
 
 	ReqPathError = 10001
 
+	DatabaseError = 40001
+
 	BusParamError        = 30001
 	BusParamConvertError = 30002
 
@@ -32,6 +34,8 @@ var ReturnMsg = map[ErrorNo]string{
 	Success: "success",
 
 	ReqPathError: "Request path error",
+
+	DatabaseError: "Something wrong communication with database ",
 
 	// Business parameters
 	BusParamError:        "Business parameter error",            // Parameter error

@@ -6,6 +6,8 @@ import (
 	"stockbit_test/soal2/internal/handler"
 	"stockbit_test/soal2/internal/utils"
 	pb "stockbit_test/soal2/outbound/movie/proto"
+	"strconv"
+	"time"
 )
 
 func SearchMovies(c echo.Context) error {
@@ -17,6 +19,19 @@ func SearchMovies(c echo.Context) error {
 	if err != nil {
 		log.Error(err.Error(), ctx)
 		return handler.HandleError(c, handler.BusParamConvertError, err.Error())
+	}
+
+	l := new(LogMovie)
+	loc, _ := time.LoadLocation("Asia/Jakarta")
+	time.Now().In(loc)
+	l.CreatedAt = time.Now().In(loc)
+	l.LogRequest = "{SearchWord: " + searchWord + ", Page: " + strconv.Itoa(int(page)) + "}"
+	l.Action = "searchDetail"
+
+	err = l.AddLogRequestMovie(ctx)
+	if err != nil {
+		log.Error(err.Error(), ctx)
+		return handler.HandleError(c, handler.DatabaseError, err.Error())
 	}
 
 	req := &pb.GetMoviesRequest{SearchWord: searchWord, Page: page}
@@ -36,6 +51,17 @@ func SearchMovie(c echo.Context) error {
 
 	if omdbId == "" {
 		return handler.HandleError(c, handler.BusParamConvertError, "omdbId is required")
+	}
+
+	l := new(LogMovie)
+	loc, _ := time.LoadLocation("Asia/Jakarta")
+	l.CreatedAt = time.Now().In(loc)
+	l.LogRequest = "omdbId: " + omdbId
+	l.Action = "searchDetail"
+	err := l.AddLogRequestMovie(ctx)
+	if err != nil {
+		log.Error(err.Error(), ctx)
+		return handler.HandleError(c, handler.DatabaseError, err.Error())
 	}
 
 	req := &pb.GetMovieRequest{OmdbId: omdbId}

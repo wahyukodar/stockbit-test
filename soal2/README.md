@@ -16,11 +16,19 @@ Go to root soal2 directory
 $ bash bin/docker_run.sh
 ```
 
+### Generate Proto(Additional)
+
+Go to root soal2 directory
+
+```
+$ bash bin/generate_movie_proto.sh
+```
+
 ### Run REST and RPC Service
 
 Go to root soal2 directory
 
-open new terminal, then following type:
+open a new terminal, then following type:
 
 ```
 $ bash bin/start_rpc_movie_service.sh

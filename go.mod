@@ -3,6 +3,8 @@ module stockbit_test
 go 1.17
 
 require (
+	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.6.0
 	github.com/jinzhu/configor v1.2.1
 	github.com/jmoiron/sqlx v1.3.4

@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"database/sql"
 	"errors"
 	"github.com/mitchellh/mapstructure"
 	"reflect"
@@ -80,4 +81,27 @@ func Map2Struct(input, result interface{}) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func ID(result sql.Result, err error) (int64, error) {
+	if err != nil {
+		return 0, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
+}
+
+type vFn func() error
+
+func V(fns ...vFn) error {
+	for _, fn := range fns {
+		err := fn()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

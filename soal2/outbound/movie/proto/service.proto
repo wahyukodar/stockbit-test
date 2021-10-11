@@ -57,6 +57,7 @@ message GetMovieResponse {
   string production = 23;
   string website = 24;
   string response = 25;
+  string Error = 26;
 }
 
 message GetMoviesRequest {

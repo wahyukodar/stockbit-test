@@ -157,5 +157,6 @@ func (s *MovieServer) GetMovie(ctx context.Context, req *pb.GetMovieRequest) (*p
 		Production: result.Production,
 		Website:    result.Website,
 		Response:   result.Response,
+		Error:      result.Error,
 	}, nil
 }

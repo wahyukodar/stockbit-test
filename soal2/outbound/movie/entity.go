@@ -50,4 +50,5 @@ type DetailsResult struct {
 	Production string    `json:"production,omitempty"`
 	Website    string    `json:"website,omitempty"`
 	Response   string    `json:"response,omitempty"`
+	Error      string    `json:"error,omitempty"`
 }

@@ -44,20 +44,23 @@ $ bash bin/start_movie_rest_service.sh
 example endpoint is in a directory http
 
 ```
-
+#example get movies by searchWord 
 GET http://localhost:8080/v1/movie/search/Batman/2
 Accept: application/json
 
 ###
-
+# example get details movie by omdbId
 GET http://localhost:8080/v1/movie/search/details/tt0096895
+Accept: application/json
+
+###
+# example incorrect imdbId
+GET http://localhost:8080/v1/movie/search/details/zzzzzzzzzzz
 Accept: application/json
 
 ###
 
 GET http://localhost:8080/check/health
 Accept: application/json
-
-###
 
 ```

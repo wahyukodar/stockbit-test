@@ -1,0 +1,3 @@
+INSERT INTO `imdb`.`USER` (`UserName`, `Parent`) VALUES ('Ali', '2');
+INSERT INTO `imdb`.`USER` (`UserName`, `Parent`) VALUES ('Budi', '0');
+INSERT INTO `imdb`.`USER` (`UserName`, `Parent`) VALUES ('Cecep', '1');

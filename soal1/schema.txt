@@ -1,0 +1,5 @@
+CREATE TABLE `imdb`.`USER` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `UserName` VARCHAR(45) NULL,
+  `Parent` INT NULL,
+  PRIMARY KEY (`ID`));

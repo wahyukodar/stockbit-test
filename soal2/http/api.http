@@ -1,0 +1,20 @@
+GET http://localhost:8080/v1/movie/search/Batman/2
+Accept: application/json
+
+###
+
+GET http://localhost:8080/v1/movie/search/details/tt0096895
+Accept: application/json
+
+###
+
+GET http://localhost:8080/check/health
+Accept: application/json
+
+###
+
+# Jika menjalankan dengan config.yml, di sana port di set di 8181
+GET http://localhost:8181/check/health
+Accept: application/json
+
+###

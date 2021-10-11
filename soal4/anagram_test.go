@@ -1,18 +1,18 @@
 package soal4
 
 import (
-"github.com/stretchr/testify/assert"
-"testing"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func BenchmarkCheckAndListAnagram1(b *testing.B) {
 	var words = []string{"kita", "atik", "tika", "aku", "kia", "makan", "kua"}
-	checkAndListAnagram(words, nil)
+	checkAnagram(words)
 }
 
 func TestCountGroup(t *testing.T) {
 	var words = []string{"kita", "atik", "tika", "aku", "kia", "makan", "kua"}
-	var result = checkAndListAnagram(words, nil)
+	var result = checkAnagram(words)
 	assert.Equal(t, len(result), 4, "expect there are 4 groups")
 	var expect = []string{"kita", "atik", "tika"}
 	assert.Contains(t, result, expect, "expect contains : kita, atik, tika")
@@ -26,7 +26,7 @@ func TestCountGroup(t *testing.T) {
 
 func TestCountGroup2(t *testing.T) {
 	var words = []string{""}
-	var result = checkAndListAnagram(words, nil)
+	var result = checkAnagram(words)
 	assert.Equal(t, len(result), 1, "")
 	var expect = []string{""}
 	assert.Contains(t, result, expect, "expect empty string")
@@ -34,7 +34,7 @@ func TestCountGroup2(t *testing.T) {
 
 func TestCountGroup3(t *testing.T) {
 	var words = []string{"helicopter", "jet", "plane"}
-	var result = checkAndListAnagram(words, nil)
+	var result = checkAnagram(words)
 	assert.Equal(t, len(result), 3, "")
 	var expect = []string{"helicopter"}
 	assert.Contains(t, result, expect, "helicopter")

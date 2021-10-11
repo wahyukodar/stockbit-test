@@ -7,10 +7,19 @@ import (
 	"stockbit_test/soal2/internal/utils"
 	pb "stockbit_test/soal2/outbound/movie/proto"
 	"strconv"
-	"time"
 )
 
-func SearchMovies(c echo.Context) error {
+type LogMovieService struct {
+	logMovie AddLogRequestMovieInterface
+}
+
+func InitService() *LogMovieService {
+	return &LogMovieService{
+		logMovie: InitLogRequestModel(),
+	}
+}
+
+func (l *LogMovieService) SearchMovies(c echo.Context) error {
 	ctx := c.Request().Context()
 
 	searchWord := c.Param("searchWord")
@@ -21,14 +30,13 @@ func SearchMovies(c echo.Context) error {
 		return handler.HandleError(c, handler.BusParamConvertError, err.Error())
 	}
 
-	l := new(LogMovie)
-	loc, _ := time.LoadLocation("Asia/Jakarta")
-	time.Now().In(loc)
-	l.CreatedAt = time.Now().In(loc)
-	l.LogRequest = "{SearchWord: " + searchWord + ", Page: " + strconv.Itoa(int(page)) + "}"
-	l.Action = "searchDetail"
+	l.logMovie.Set(LogMovie{
+		CreatedAt:  utils.MicroTime(),
+		LogRequest: "{SearchWord: " + searchWord + ", Page: " + strconv.Itoa(int(page)) + "}",
+		Action:     "searchAllBySearchWord",
+	})
 
-	err = l.AddLogRequestMovie(ctx)
+	err = l.logMovie.AddLogRequestMovie(ctx)
 	if err != nil {
 		log.Error(err.Error(), ctx)
 		return handler.HandleError(c, handler.DatabaseError, err.Error())
@@ -44,7 +52,7 @@ func SearchMovies(c echo.Context) error {
 	return handler.HandleSuccess(c, rsp.Data, rsp.Pages, rsp.Page, rsp.Total)
 }
 
-func SearchMovie(c echo.Context) error {
+func (l *LogMovieService) SearchMovie(c echo.Context) error {
 	ctx := c.Request().Context()
 
 	omdbId := c.Param("omdbId")
@@ -53,12 +61,13 @@ func SearchMovie(c echo.Context) error {
 		return handler.HandleError(c, handler.BusParamConvertError, "omdbId is required")
 	}
 
-	l := new(LogMovie)
-	loc, _ := time.LoadLocation("Asia/Jakarta")
-	l.CreatedAt = time.Now().In(loc)
-	l.LogRequest = "omdbId: " + omdbId
-	l.Action = "searchDetail"
-	err := l.AddLogRequestMovie(ctx)
+	l.logMovie.Set(LogMovie{
+		CreatedAt:  utils.MicroTime(),
+		LogRequest: "{omdbIds: " + omdbId + "}",
+		Action:     "searchOneByOmdbId",
+	})
+
+	err := l.logMovie.AddLogRequestMovie(ctx)
 	if err != nil {
 		log.Error(err.Error(), ctx)
 		return handler.HandleError(c, handler.DatabaseError, err.Error())

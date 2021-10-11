@@ -40,9 +40,11 @@ func Run() {
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.PATCH},
 	}))
 
+	service := InitService()
+
 	g := e.Group("/v1/movie/search")
-	g.GET("/details/:omdbId", SearchMovie)
-	g.GET("/:searchWord/:page", SearchMovies)
+	g.GET("/details/:omdbId", service.SearchMovie)
+	g.GET("/:searchWord/:page", service.SearchMovies)
 
 	check := e.Group("/check")
 	check.GET("/health", func(c echo.Context) error {

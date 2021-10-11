@@ -2,12 +2,11 @@ package movie
 
 import (
 	"context"
+	"github.com/asaskevich/govalidator"
 	"github.com/labstack/gommon/log"
 	"stockbit_test/soal2/cinit"
 	"stockbit_test/soal2/internal/utils"
 	"time"
-
-	"github.com/asaskevich/govalidator"
 )
 
 type LogMovie struct {
@@ -15,6 +14,21 @@ type LogMovie struct {
 	LogRequest string    `json:"log_request" db:"log_request" valid:"required"`
 	Action     string    `json:"action" db:"action" valid:"required"`
 	CreatedAt  time.Time `json:"created_at" db:"created_at" valid:"required"`
+}
+
+type AddLogRequestMovieInterface interface {
+	AddLogRequestMovie(context.Context) error
+	Set(lM LogMovie)
+}
+
+func (l *LogMovie) Set(lM LogMovie) {
+	l.CreatedAt = lM.CreatedAt
+	l.Action = lM.Action
+	l.LogRequest = lM.LogRequest
+}
+
+func InitLogRequestModel() AddLogRequestMovieInterface {
+	return &LogMovie{}
 }
 
 func (l *LogMovie) validate() error {
